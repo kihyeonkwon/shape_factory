@@ -40,3 +40,32 @@ Bullet myBullet003 = BulletFactory.create(context)
 호출자는 캐시여부를 전혀 알 수 없다.
 
 Define an interface for creating an object, but let subclasses decide which class to instantiate.
+
+다음과 같은 패턴들과 잘 어울린다.
+
+- Strategy, Iterator와 함께 써서 collection subclass들이 다양한 iterator를 리턴하게 하여 컬렉션과 함께 쓰일수있게 한다.
+- Object Pool과 함께해서 다양한 subtype을 가진 캐시오브젝트들을 만든다.
+
+언제 쓸것인가?
+
+- 호출자가 생성되는 오브젝트의 클래스를 예측하지 못할때
+  - 사용자가 무슨 무기를 쓸것인가? 아직 알 수 없다.
+  - 추후에 새로운 탈 것과 무기들이 추가될수 있는데 코드변경은 안하고 싶다.
+- 상속받은 클래스들이 많을때
+
+장점
+
+- sub class가 타입을 결정하게 해준다.
+- Builder 패턴보다 구현이 쉽다.
+- loose-coupling을 가능케 해준다.
+- SRP에 해당한다
+- Open/Closed Principle에도 해당한다. 왜냐면 신규 클래스를 추가할때 변경이 없으니까. 클린코드-
+
+단점
+
+- 클래스 자체가 많아진다.
+
+고려사항
+
+- 자식이 많은 타입이 있는 경우 공통의 인터페이스 혹은 추상 클래스에서 상속을 받게 한다.
+- 부모클래스에 모든 자식들에 해당하는 메소드들이 있어야한다.
