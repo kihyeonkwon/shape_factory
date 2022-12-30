@@ -92,10 +92,6 @@ Instance instanceA = ConcreteFactoryA().createInstance();
 Instance instanceB = ConcreteFactoryB().createInstance();
 ```
 
-
-
-
-
 ### Simple Factory
 
 ![image-20221231004313069](./README.assets/image-20221231004313069.png)
@@ -111,10 +107,6 @@ Instance instanceB = InstanceFactory.createInstance(InstanceEnum.InstanceB)
 
 - Factory가 하나만 있어서 편하다.
 
-
-
-
-
 ## Project Code
 
 ![image-20221231005907037](./README.assets/image-20221231005907037.png)
@@ -122,12 +114,72 @@ Instance instanceB = InstanceFactory.createInstance(InstanceEnum.InstanceB)
 ![image-20221231005445928](./README.assets/image-20221231005445928.png)
 
 - ShapeBuildContext라는 클래스를 만들어서 ShapeFactory에 들어갈 인자값들에 대한 모델링을 해준다.
-- 이중에서 Shape에 관한것은 enum으로 만들어서 관리해준다. 
+- 이중에서 Shape에 관한것은 enum으로 만들어서 관리해준다.
 - utils.dart에서 실행한다.
 
+## Quiz
+
+### Add Triangle Support
+
+Shape.dart
+
+```dart
+//class Triangle
+void draw(Canvas canvas) {
+    var paint = Paint()
+      ..color = _color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4;
+    // canvas.drawPath(path, paint);
+    var path = Path();
+    path.moveTo(_vertices[0].x.toDouble(), _vertices[0].y.toDouble());
+    path.lineTo(_vertices[1].x.toDouble(), _vertices[1].y.toDouble());
+    path.lineTo(_vertices[2].x.toDouble(), _vertices[2].y.toDouble());
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+```
+
+Shape_factory.dart
+
+```dart
+
+      case ShapesEnum.triangle:
+        {
+          result = Triangle(context.color, context.vertices[0],
+              context.vertices[1], context.vertices[2]);
+        }
+        break;
 
 
+```
 
+utils.dart
 
+```dart
+case ShapesEnum.triangle:
+        {
+          Point v1 = Point(
+              rnd.nextDouble() * (constraints.width - margins.width),
+              rnd.nextDouble() * (constraints.height - margins.height));
+          Point v2 = Point(
+              rnd.nextDouble() * (constraints.width - margins.width),
+              rnd.nextDouble() * (constraints.height - margins.height));
+          Point v3 = Point(
+              rnd.nextDouble() * (constraints.width - margins.width),
+              rnd.nextDouble() * (constraints.height - margins.height));
 
+          /// randomly generate color
+          Color color =
+              Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
+          ShapeBuildContext context = ShapeBuildContext()
+            ..shapeType = shapeType
+            ..color = color
+            ..vertices = [v1, v2, v3];
+          result = ShapeFactory.createShape(context);
+        }
+        break;
+    }
+```
