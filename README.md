@@ -69,3 +69,51 @@ Define an interface for creating an object, but let subclasses decide which clas
 
 - 자식이 많은 타입이 있는 경우 공통의 인터페이스 혹은 추상 클래스에서 상속을 받게 한다.
 - 부모클래스에 모든 자식들에 해당하는 메소드들이 있어야한다.
+- static한 Factory를 만들어서 항상 같은 인터페이스에 대한 reference를 갖고오게 한다.
+- factory한테 원하는 타입을 알려준다. 주로 enum을 사용한다.
+
+종류
+
+- Simple
+- Classic(GoF)
+
+### Classic Factory Pattern
+
+![image-20221231004033180](./README.assets/image-20221231004033180.png)
+
+![image-20221231004053448](./README.assets/image-20221231004053448.png)
+
+![image-20221231004218237](./README.assets/image-20221231004218237.png)
+
+- 각각의 클래스에 대해서 factory implementation이 존재한다.
+
+```dart
+Instance instanceA = ConcreteFactoryA().createInstance();
+Instance instanceB = ConcreteFactoryB().createInstance();
+```
+
+
+
+
+
+### Simple Factory
+
+![image-20221231004313069](./README.assets/image-20221231004313069.png)
+
+![image-20221231004352322](./README.assets/image-20221231004352322.png)
+
+- Factory는 하나만 존재한다. 대신에 만들고자하는 타입을 전달해준다.
+
+```dart
+Instance instanceA = InstanceFactory.createInstance(InstanceEnum.InstanceA)
+Instance instanceB = InstanceFactory.createInstance(InstanceEnum.InstanceB)
+```
+
+- Factory가 하나만 있어서 편하다.
+
+
+
+
+
+
+
