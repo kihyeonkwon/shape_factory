@@ -173,7 +173,14 @@ class Triangle extends Shape {
       ..color = _color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4;
-    //canvas.drawPath(path, paint);
+    // canvas.drawPath(path, paint);
+    var path = Path();
+    path.moveTo(_vertices[0].x.toDouble(), _vertices[0].y.toDouble());
+    path.lineTo(_vertices[1].x.toDouble(), _vertices[1].y.toDouble());
+    path.lineTo(_vertices[2].x.toDouble(), _vertices[2].y.toDouble());
+    path.close();
+
+    canvas.drawPath(path, paint);
   }
 
   @override

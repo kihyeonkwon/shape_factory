@@ -86,6 +86,30 @@ class Utils {
           result = ShapeFactory.createShape(context);
         }
         break;
+
+      case ShapesEnum.triangle:
+        {
+          Point v1 = Point(
+              rnd.nextDouble() * (constraints.width - margins.width),
+              rnd.nextDouble() * (constraints.height - margins.height));
+          Point v2 = Point(
+              rnd.nextDouble() * (constraints.width - margins.width),
+              rnd.nextDouble() * (constraints.height - margins.height));
+          Point v3 = Point(
+              rnd.nextDouble() * (constraints.width - margins.width),
+              rnd.nextDouble() * (constraints.height - margins.height));
+
+          /// randomly generate color
+          Color color =
+              Colors.primaries[Random().nextInt(Colors.primaries.length)];
+
+          ShapeBuildContext context = ShapeBuildContext()
+            ..shapeType = shapeType
+            ..color = color
+            ..vertices = [v1, v2, v3];
+          result = ShapeFactory.createShape(context);
+        }
+        break;
     }
     return result;
   }

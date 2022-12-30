@@ -115,5 +115,19 @@ Instance instanceB = InstanceFactory.createInstance(InstanceEnum.InstanceB)
 
 
 
+## Project Code
+
+![image-20221231005907037](./README.assets/image-20221231005907037.png)
+
+![image-20221231005445928](./README.assets/image-20221231005445928.png)
+
+- ShapeBuildContext라는 클래스를 만들어서 ShapeFactory에 들어갈 인자값들에 대한 모델링을 해준다.
+- 이중에서 Shape에 관한것은 enum으로 만들어서 관리해준다. 
+- utils.dart에서 실행한다.
+
+
+
+
+
 
 

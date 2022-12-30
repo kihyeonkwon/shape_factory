@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// Enumeration of available shape ids to be used when calling the
 /// Factory Method for Shape creation
 ///
-enum ShapesEnum { rectangle, circle }
+enum ShapesEnum { rectangle, circle, triangle }
 
 ///
 /// Context data to build shapes.
@@ -59,6 +59,13 @@ class ShapeFactory {
       case ShapesEnum.circle:
         {
           result = Circle(context.color, context.vertices[0], context.radius);
+        }
+        break;
+
+      case ShapesEnum.triangle:
+        {
+          result = Triangle(context.color, context.vertices[0],
+              context.vertices[1], context.vertices[2]);
         }
         break;
     }
