@@ -15,12 +15,15 @@ abstract class Shape {
   Color _color = Colors.amber;
   String _name = "Shape";
   List<Point> _vertices = <Point>[];
+  bool isValid = false;
 
   /// this will paint the chape on the supplied canvas
   void draw(Canvas canvas);
 
   /// this will return the computed area of teh shape
   double getArea();
+
+  void validate();
 
   /// _color getter
   Color get getColor {
@@ -81,6 +84,12 @@ class Rectangle extends Shape {
   /// simple area calculation
   double getArea() {
     return _width * _height;
+  }
+
+  @override
+  bool validate() {
+    isValid = true;
+    return isValid;
   }
 }
 
@@ -169,16 +178,19 @@ class Triangle extends Shape {
   /// can be expanded upon in later versions
   ///
   void draw(Canvas canvas) {
+    if (isValid == false) {
+      throw (Exception("Not validated"));
+    }
     var paint = Paint()
       ..color = _color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4;
     // canvas.drawPath(path, paint);
-    var path = Path();
-    path.moveTo(_vertices[0].x.toDouble(), _vertices[0].y.toDouble());
-    path.lineTo(_vertices[1].x.toDouble(), _vertices[1].y.toDouble());
-    path.lineTo(_vertices[2].x.toDouble(), _vertices[2].y.toDouble());
-    path.close();
+    var path = Path()
+      ..moveTo(_vertices[0].x.toDouble(), _vertices[0].y.toDouble())
+      ..lineTo(_vertices[1].x.toDouble(), _vertices[1].y.toDouble())
+      ..lineTo(_vertices[2].x.toDouble(), _vertices[2].y.toDouble())
+      ..close();
 
     canvas.drawPath(path, paint);
   }
@@ -197,5 +209,19 @@ class Triangle extends Shape {
     num area;
     area = v1.x * (v2.y - v3.y) + v2.x * (v3.y - v1.y) + v3.x * (v1.y - v2.y);
     return area.toDouble();
+  }
+
+  @override
+  void validate() {
+    // TODO: implement validate
+    Point v1 = _vertices[0];
+    Point v2 = _vertices[1];
+    Point v3 = _vertices[2];
+
+    var a1 = (v2.y - v1.y) / (v2.x - v1.x);
+    var a2 = (v3.y - v2.y) / (v3.x - v2.y);
+    if (a1 != a2) {
+      isValid = true;
+    }
   }
 }
